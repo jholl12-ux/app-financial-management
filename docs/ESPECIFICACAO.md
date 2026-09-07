@@ -7,6 +7,8 @@
 
 Este documento consolidou três rodadas de refinamento com o usuário. Todos os itens antes marcados como "A VALIDAR" foram decididos (ver §10).
 
+> **Entregáveis da Etapa 1:** (a) esta especificação (`docs/ESPECIFICACAO.md`); (b) o **documento de acompanhamento de desenvolvimento em tempo real** (`docs/ACOMPANHAMENTO.md`), que durante a Etapa 4 mostra o status, o resultado (sucesso/falha) e o tempo de cada tarefa, atualizado via commit a cada tarefa concluída.
+
 > **Mudanças na v0.2 (após 2ª rodada de respostas):** a v1 passa a ser **local-first no celular** (roda offline, sem nuvem/login), com você gerenciando você e o cônjuge como "titulares" no mesmo aparelho; nuvem + multiusuário em tempo real viram fase futura. Cotações de investimentos passam a ser **automáticas, em tempo real, via internet**. Bens físicos ganham **depreciação/valorização**. Relatórios devem ser **visualmente bonitos, com gráficos**. Adicionado o princípio **"Educativo"** (o app explica finanças em linguagem simples, pois o usuário não tem familiaridade com o tema).
 
 ---
