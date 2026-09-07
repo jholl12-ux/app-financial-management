@@ -1,11 +1,11 @@
 # Especificação do Produto — App de Gestão Financeira Pessoal
 
-> **Status:** Rascunho v0.2 para refinamento.
+> **Status:** ✅ **v1.0 — Especificação de produto CONGELADA** (todas as pendências resolvidas).
 > **Data:** 2026-09-07
-> **Etapa atual:** Planejamento de produto (Product Management). Nenhum código deve ser escrito ainda.
+> **Etapa atual:** Planejamento de produto (Product Management) concluído. Nenhum código deve ser escrito ainda.
 > **Próximas etapas:** (2) Identidade visual / design → (3) Arquitetura técnica → (4) Desenvolvimento.
 
-Este documento é um **rascunho vivo**. As seções marcadas com ⚠️ **A VALIDAR** contêm suposições que assumi para preencher lacunas — precisam do seu "ok" ou ajuste antes de congelarmos a especificação.
+Este documento consolidou três rodadas de refinamento com o usuário. Todos os itens antes marcados como "A VALIDAR" foram decididos (ver §10).
 
 > **Mudanças na v0.2 (após 2ª rodada de respostas):** a v1 passa a ser **local-first no celular** (roda offline, sem nuvem/login), com você gerenciando você e o cônjuge como "titulares" no mesmo aparelho; nuvem + multiusuário em tempo real viram fase futura. Cotações de investimentos passam a ser **automáticas, em tempo real, via internet**. Bens físicos ganham **depreciação/valorização**. Relatórios devem ser **visualmente bonitos, com gráficos**. Adicionado o princípio **"Educativo"** (o app explica finanças em linguagem simples, pois o usuário não tem familiaridade com o tema).
 
@@ -254,13 +254,13 @@ Todas as entidades transacionais carregam o **titular** para permitir as visões
 **v1 (local-first no celular):**
 - **Local-first / offline:** o app roda **inteiramente no seu celular**, com os dados guardados no próprio aparelho. Funciona **sem internet** para tudo, menos buscar cotações (que atualizam quando há conexão). É um **PWA** (instalável na tela inicial, abre como um app).
 - **Sem login na v1:** um único "espaço" no aparelho; você e o cônjuge são **titulares** dentro dele. Sem servidor, sem conta.
-- **Backup/portabilidade:** como os dados ficam no aparelho, o app oferece **exportar/importar um backup** (arquivo) para não se perder os dados ao trocar de celular ou limpar o navegador. ⚠️ **A VALIDAR:** confirmar que um backup manual (exportar arquivo) é suficiente na v1.
+- **Backup/portabilidade:** como os dados ficam no aparelho, o app oferece **exportar e importar um backup** (arquivo) — **decidido:** backup manual é suficiente na v1 (protege ao trocar de celular ou limpar o navegador).
 - **Custo zero:** nenhuma infraestrutura paga na v1.
 
 **Comum a todas as versões:**
 - **Precisão monetária:** valores em centavos/decimal fixo; datas e fusos tratados corretamente.
 - **Responsivo:** foco no **celular** (uso diário); também utilizável no computador.
-- **Segurança/privacidade:** dados sensíveis. Na v1 (local) os dados não saem do aparelho; ⚠️ **A VALIDAR:** desejável um **PIN/biometria** para abrir o app.
+- **Segurança/privacidade:** dados sensíveis. Na v1 (local) os dados não saem do aparelho. **Decidido:** **sem** PIN/biometria na v1 (pode ser adicionado no futuro se desejado).
 - **LGPD:** dados tratados com o mínimo necessário; usuário pode exportar e excluir seus dados.
 - **Idioma:** Português do Brasil; formatação R$, datas dd/mm/aaaa.
 
@@ -277,7 +277,7 @@ Todas as entidades transacionais carregam o **titular** para permitir as visões
 - **PWA** (aplicativo web instalável) rodando no navegador do celular, **mobile-first**.
 - Dados guardados **localmente no aparelho** (armazenamento local do navegador, ex.: IndexedDB), sem servidor.
 - Cotações buscadas em **APIs públicas gratuitas** quando online (com pequeno intermediário gratuito se necessário por causa de CORS — ver §4.8).
-- **Distribuição:** para instalar no seu celular, o app precisa estar acessível por um endereço web. Dá para hospedar o "casco" do app de graça (ex.: **Vercel/GitHub Pages**) — isso **não** guarda seus dados (eles ficam no aparelho), só serve a página do app. ⚠️ **A VALIDAR:** confirmar que instalar via PWA (link) atende, em vez de app na loja.
+- **Distribuição (decidido):** instalação via **PWA por link** (adicionar à tela inicial do celular), **sem loja de apps**. O "casco" do app fica hospedado de graça (ex.: **Vercel/GitHub Pages**) — isso **não** guarda seus dados (eles ficam no aparelho), só serve a página do app.
 
 **Fase futura — nuvem + multiusuário em tempo real (custo zero):**
 - **Back-end / banco / autenticação:** **Supabase** (plano grátis) — PostgreSQL, login/senha, sincronização em tempo real e acesso por família.
@@ -305,13 +305,15 @@ Para manter a v1 **fácil, rápida e precisa**, ficam de fora nesta versão:
 
 **Já resolvidos na 2ª rodada:** cotações automáticas em tempo real (§4.8) · premissas FIRE aprovadas com defaults e explicação simples (§4.10) · bens com histórico + depreciação/valorização (§4.14) · relatórios bonitos com gráficos + export PDF/CSV (§4.16) · offline/local-first já na v1 (§7) · receitas por titular com visão unificada (§4.3) · bancos XP/Bradesco/Binance/Nomad (§4.15) · v1 local no celular, nuvem/multiusuário como fase futura (§7, §8).
 
-**Pendências menores restantes (⚠️) para a gente fechar:**
+**Resolvidos na 3ª rodada (não há mais pendências):**
 
-1. **Backup na v1:** como os dados ficam no celular, exportar/importar um **arquivo de backup** manual é suficiente por enquanto? (§7)
-2. **Proteção do app:** quer **PIN/biometria** para abrir o app na v1? (§7)
-3. **Instalação via PWA:** tudo bem instalar pelo link (adicionar à tela inicial), sem loja de apps? (§8)
-4. **Cotações — precisão da fonte:** ok usar fontes gratuitas (podem ter pequeno atraso de minutos e limites de uso), ou você precisa de cotação "profissional" em tempo real absoluto? (§4.8)
-5. Fora isso, você disse que **está tudo contemplado** (item 8 da sua resposta). ✔️
+1. **Backup na v1:** ✔️ exportar/importar arquivo de backup manual. (§7)
+2. **Proteção do app:** ✔️ **sem** PIN/biometria na v1. (§7)
+3. **Instalação via PWA:** ✔️ por link, sem loja de apps. (§8)
+4. **Cotações:** ✔️ fontes gratuitas, pequenos atrasos aceitáveis. (§4.8)
+5. **Escopo:** ✔️ usuário confirmou que está tudo contemplado.
+
+> **A especificação está congelada.** Mudanças a partir daqui geram uma nova versão (v1.1+) e devem ser combinadas explicitamente.
 
 ---
 
